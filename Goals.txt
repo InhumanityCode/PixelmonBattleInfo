@@ -1,0 +1,25 @@
+# TODO
+
+[X] Enable removing Pixelmon Nicknames while in battle
+[ ] Display all Pixelmon current stat multipliers (boosts/reductions) only if modified
+[ ] Display enemy and ally typings
+[ ] Display enemy and ally other statuses (isFlying, etc)
+[ ] Display enemy and ally movelist as moves are used + PP counter
+[ ] On hover of OR click on Pixelmon overlay, display Species base stats with highest possible from EV + IV + Nature (+ stat multipliers)
+[ ] Display Poke Ball name in post Raid Den loot+capture screen
+[ ] Display estimated catch rate on hovering each Poke Ball
+[ ] Display EV yields
+
+[ ] Reset / reapply all UI additions and modifications to Pixelmon switched in
+[ ] Make configs for each setting above
+
+
+Things the Client CAN Know
+- Enemy name of species
+- Enemy moveset
+- Enemy current HP (exact, not %)
+- Enemy held item
+- Enemy ability
+
+Things the Client CANNOT Know
+- Enemy moveset current PP

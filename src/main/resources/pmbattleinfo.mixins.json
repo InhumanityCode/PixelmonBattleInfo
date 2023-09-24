@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "minVersion": "0.7.10",
+    "package": "com.inhumanity.pmbattleinfo.mixin",
+    "refmap": "pmbattleinfo.mixins.refmap.json",
+    "target": "@env(DEFAULT)",
+    "compatibilityLevel": "JAVA_8",
+    "mixins": [
+    ],
+    "client": [
+      "client.OpponentElementMixin",
+      "client.AllyElementMixin",
+      "client.MoveButtonMixin"
+    ]
+  }
