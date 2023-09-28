@@ -9,12 +9,12 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.pixelmonmod.pixelmon.client.ClientProxy;
 import com.pixelmonmod.pixelmon.client.gui.ScreenHelper;
 import com.pixelmonmod.pixelmon.client.gui.battles.PixelmonClientData;
-import com.pixelmonmod.pixelmon.client.gui.battles.pokemonOverlays.OpponentElement;
+import com.pixelmonmod.pixelmon.client.gui.battles.pokemonOverlays.RaidElement;
 import com.pixelmonmod.pixelmon.client.gui.widgets.PixelmonWidget;
 
 import net.minecraft.client.Minecraft;
-
 import net.minecraft.client.util.InputMappings;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,10 +23,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static com.inhumanity.pmbattleinfo.init.KeybindsInit.*;
 
-@Mixin(value = OpponentElement.class)
-public abstract class OpponentElementMixin extends PixelmonWidget {
+@Mixin(value = RaidElement.class)
+public abstract class RaidElementMixin extends PixelmonWidget {
     // Tooltip as a whole
     private final boolean pmbattleinfo$configTooltip = ClientConfig.battlePixelmonTooltip.get();
+
     @Shadow(remap = false)
     private PixelmonClientData enemy;
 
@@ -48,8 +49,8 @@ public abstract class OpponentElementMixin extends PixelmonWidget {
         }
 
         long window = Minecraft.getInstance().getWindow().getWindow();
-        int x = 15;
-        int y = 45;
+        int x = 5;
+        int y = 5;
         int gradient = Tooltip.getGradient();
         int background = Tooltip.getBackground();
         int alpha = Tooltip.getAlpha();

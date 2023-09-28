@@ -9,6 +9,7 @@
     ],
     "client": [
       "client.OpponentElementMixin",
+      "client.RaidElementMixin",
       "client.AllyElementMixin",
       "client.MoveButtonMixin"
     ]

@@ -1,0 +1,16 @@
+{
+  "key.category.pmbattleinfo.general": "Pixelmon Battle Info",
+  "key.category.pmbattleinfo.tooltip": "Pixelmon Battle Info: Battle Tooltip",
+
+  "key.pmbattleinfo.battle.tt_ally_1": "Ally 1",
+  "key.pmbattleinfo.battle.tt_ally_2": "Ally 2",
+  "key.pmbattleinfo.battle.tt_ally_3": "Ally 3",
+  "key.pmbattleinfo.battle.tt_ally_4": "Ally 4",
+  "key.pmbattleinfo.battle.tt_ally_5": "Ally 5",
+
+  "key.pmbattleinfo.battle.tt_enemy_1": "Enemy 1",
+  "key.pmbattleinfo.battle.tt_enemy_2": "Enemy 2",
+  "key.pmbattleinfo.battle.tt_enemy_3": "Enemy 3",
+  "key.pmbattleinfo.battle.tt_enemy_4": "Enemy 4",
+  "key.pmbattleinfo.battle.tt_enemy_5": "Enemy 5"
+}

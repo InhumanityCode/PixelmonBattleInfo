@@ -1,4 +1,4 @@
-package com.inhumanity.pmbattleinfo;
+package com.inhumanity.pmbattleinfo.util;
 
 import java.util.Collection;
 
