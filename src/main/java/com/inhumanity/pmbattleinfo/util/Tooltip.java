@@ -34,10 +34,12 @@ public class Tooltip {
         Collection<ITextComponent> res = new ArrayList<>();
         if (PCD == null) return res;
 
-        boolean isEnemy = Arrays.stream(ClientProxy.battleManager.displayedEnemyPokemon).anyMatch(p -> p.pokemonUUID == PCD.pokemonUUID);
-        boolean isOurs = ClientProxy.battleManager.displayedOurPokemon != null && (!isEnemy && Arrays.stream(ClientProxy.battleManager.displayedOurPokemon).anyMatch(p -> p.pokemonUUID == PCD.pokemonUUID));
+        final PixelmonClientData[] ourPCDs = ClientProxy.battleManager.displayedOurPokemon;
 
-        boolean hasMultipleOurs = (ClientProxy.battleManager.displayedOurPokemon != null && ClientProxy.battleManager.displayedOurPokemon.length > 1);
+        boolean isEnemy = Arrays.stream(ClientProxy.battleManager.displayedEnemyPokemon).anyMatch(p -> p.pokemonUUID == PCD.pokemonUUID);
+        boolean isOurs = (ourPCDs != null) && (!isEnemy && Arrays.stream(ourPCDs).anyMatch(p -> p.pokemonUUID == PCD.pokemonUUID));
+
+        boolean hasMultipleOurs = (ourPCDs != null && ourPCDs.length > 1);
 
         final boolean configKnowMoveset = ClientConfig.battleKnowEnemyMoveset.get();
 
@@ -67,9 +69,11 @@ public class Tooltip {
         res.add(attributes.get(TooltipValues.Palette));
         res.add(attributes.get(TooltipValues.Weight));
 
-        // Add Moves if Ally or Enemy
-        if ((isOurs && hasMultipleOurs) || (!isOurs && configKnowMoveset)) {
-            res.add(newSTC(""));
+        // Show Moveset of current Pixelmon if User owns multiple displayed Pixelmon
+        // OR if it is an Enemy or an Ally
+        // OR if User is spectating a battle
+        if ((isOurs && hasMultipleOurs) || (!isOurs && configKnowMoveset) || isSpectating()) {
+            res.add(newSTC("")); // Spacer
 
             String title = (isEnemy ? "Moves Effective to You" : "Moves");
             res.add(newSTC(title).withStyle(TextFormatting.GOLD).withStyle(TextFormatting.BOLD));
@@ -169,8 +173,8 @@ public class Tooltip {
                     int atkPower = atk.movePower;
                     String atkAccuracy = (atk.getMove().getAccuracy() == -1 ? "-" : String.valueOf(atk.getMove().getAccuracy()));
 
-                    // If Ally, default font color (WHITE). Else is Enemy, so color determined by Effectiveness to OUR Pixelmon
-                    TextFormatting color = (!isEnemy ? TextFormatting.WHITE : getMultiplierColor(Element.getTotalEffectiveness(getOurTypes(), atk.getType(), isInverseBattle())));
+                    TextFormatting color = getMoveTextColor(isEnemy, atk.getType());
+
                     res.put(enumMove, newSTC(String.format("%2dpp, %s : %s", ppCurr, atkType, atkName)).withStyle(color));
                     res.put(enumMoveInfo, newSTC(String.format("   CAT: %s, POW: %d, ACC: %s", atkCategory, atkPower, atkAccuracy)).withStyle(color));
                 }
@@ -203,6 +207,19 @@ public class Tooltip {
         return name;
     }
 
+    private static TextFormatting getMoveTextColor(boolean isEnemy, Element atkType) {
+        TextFormatting color = TextFormatting.WHITE;
+
+        // If PCD is enemy, get effectiveness to Our
+        // Otherwise, get effectiveness to Enemy because it is Our
+        if (isEnemy)
+            color = getMultiplierColor(Element.getTotalEffectiveness(getOurTypes(), atkType, isInverseBattle()));
+        else if (isSpectating())
+            color = getMultiplierColor(Element.getTotalEffectiveness(getEnemyTypes(), atkType, isInverseBattle()));
+
+        return color;
+    }
+
     private static TextFormatting getMultiplierColor(double m) {
         if      (m == Effectiveness.Max.value)      return TextFormatting.DARK_GREEN;
         else if (m == Effectiveness.Super.value)    return TextFormatting.GREEN;
@@ -216,7 +233,15 @@ public class Tooltip {
         return ClientProxy.battleManager.rules.hasClause(BattleClauseRegistry.INVERSE_BATTLE);
     }
 
+    private static boolean isSpectating() {
+        return ClientProxy.battleManager.isSpectating;
+    }
+
     private static List<Element> getOurTypes() {
         return ClientProxy.battleManager.displayedOurPokemon[0].getBaseStats().getTypes();
+    }
+
+    private static List<Element> getEnemyTypes() {
+        return ClientProxy.battleManager.displayedEnemyPokemon[0].getBaseStats().getTypes();
     }
 }

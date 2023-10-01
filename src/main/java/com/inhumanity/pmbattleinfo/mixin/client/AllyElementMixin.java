@@ -37,7 +37,7 @@ public abstract class AllyElementMixin extends PixelmonWidget {
     private static int yPos = 45;
 
     @Inject(method = "drawElement(Lcom/mojang/blaze3d/matrix/MatrixStack;F)V", at = @At("TAIL"), remap = false)
-    private void drawPixelmonBattleTooltipOurs(MatrixStack matrix, float scale, CallbackInfo ci) {
+    private void drawPixelmonBattleTooltipAllies(MatrixStack matrix, float scale, CallbackInfo ci) {
         RemoveNicknames.removeNickname(ally);
 
         if (!pmbattleinfo$configTooltip) return;
