@@ -27,6 +27,7 @@ import static com.inhumanity.pmbattleinfo.init.KeybindsInit.*;
 public abstract class OpponentElementMixin extends PixelmonWidget {
     // Tooltip as a whole
     private final boolean pmbattleinfo$configTooltip = ClientConfig.battlePixelmonTooltip.get();
+
     @Shadow(remap = false)
     private PixelmonClientData enemy;
 

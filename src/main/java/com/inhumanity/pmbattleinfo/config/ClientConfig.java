@@ -12,6 +12,7 @@ public class ClientConfig {
     public static final ConfigValue<Boolean> battleRemoveNickname;
     public static final ConfigValue<Boolean> battlePixelmonTooltip;
     public static final ConfigValue<Boolean> battleMovesetEffectiveness;
+    public static final ConfigValue<Boolean> battlePokeBallCatchChance;
 
     // Tooltip Specific
     public static final ConfigValue<Boolean> battleKnowEnemyHP;
@@ -34,6 +35,10 @@ public class ClientConfig {
         battleMovesetEffectiveness = BUILDER
             .comment("Display Your Moveset Effectiveness (1st enemy ONLY)")
             .define("YourMovesetEffectiveness", true);
+
+        battlePokeBallCatchChance = BUILDER
+            .comment("Display Poke Ball Catch Chance")
+            .define("CatchChanceTooltip", true);
 
 
         // Tooltip Specific
